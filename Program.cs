@@ -31,6 +31,7 @@ namespace dotnet_action_test
                 .WithStaticAssets();
 
             app.Run();
+
         }
     }
 }
