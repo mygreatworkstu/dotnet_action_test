@@ -19,10 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
-        source-url: https://nuget.pkg.github.com/mygreatworkstu/index.json
-      env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        dotnet-version: 10.0.x        
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -36,6 +33,8 @@ jobs:
         path: TestResults-${{ matrix.dotnet-version }}
     - name: Create the package
       run: dotnet pack --configuration Release 
+    - name: add package source
+      run: dotnet nuget add source https://nuget.pkg.github.com/mygreatworkstu/index.json -n github -u mygreatworkstu -p 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 --store-password-in-clear-text
     - name: Publish the package to GPR
       run: dotnet nuget push bin/Release/*.nupkg
        
