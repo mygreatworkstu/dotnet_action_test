@@ -32,9 +32,7 @@ jobs:
         name: dotnet-results-${{ matrix.dotnet-version }}
         path: TestResults-${{ matrix.dotnet-version }}
     - name: Create the package
-      run: dotnet pack --configuration Release 
-    - name: add package source
-      run: dotnet nuget add source https://nuget.pkg.github.com/mygreatworkstu/index.json -n github -u mygreatworkstu -p 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 --store-password-in-clear-text
+      run: dotnet pack --configuration Release    
     - name: Push to GitHub Packages
       run: |
         # 配置 NuGet 源
