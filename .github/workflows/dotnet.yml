@@ -34,17 +34,20 @@ jobs:
     - name: Create the package
       run: dotnet pack --configuration Release    
     - name: Push to GitHub Packages
+      env:
+        GH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
       run: |
         # 配置 NuGet 源
         dotnet nuget add source \
           https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
           --name github \
-          --username ${{ github.actor }} \
-          --password ${{ secrets.GITHUB_TOKEN }} \
+          --username ${{ github.repository_owner }} \
+          --password ${{ secrets.GH_PACKAGES_TOKEN }} \
           --store-password-in-clear-text
         
         # 推送包
-        dotnet nuget push bin/Release/*.nupkg \
+        dotnet nuget push ./nupkg/*.nupkg \
           --source "github" \
-          --api-key ${{ secrets.GITHUB_TOKEN }}
+          --skip-duplicate \
+          --api-key ${{ secrets.GH_PACKAGES_TOKEN }}
        
