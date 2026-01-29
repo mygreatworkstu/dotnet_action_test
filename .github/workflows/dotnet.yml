@@ -35,7 +35,7 @@ jobs:
         name: dotnet-results-${{ matrix.dotnet-version }}
         path: TestResults-${{ matrix.dotnet-version }}
     - name: Create the package
-      run: dotnet pack --configuration Release    
+      run: dotnet pack --configuration Release -p:Version=1.1.0     
     - name: Push to GitHub Packages
       env:
         GH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
