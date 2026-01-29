@@ -46,7 +46,7 @@ jobs:
           --store-password-in-clear-text
         
         # 推送包
-        dotnet nuget push ./nupkg/*.nupkg \
+        dotnet nuget push bin/Release/*.nupkg \
           --source "github" \
           --skip-duplicate \
           --api-key ${{ secrets.GH_PACKAGES_TOKEN }}
