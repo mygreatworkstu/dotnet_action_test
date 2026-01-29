@@ -36,5 +36,5 @@ jobs:
     - name: add package source
       run: dotnet nuget add source https://nuget.pkg.github.com/mygreatworkstu/index.json -n github -u mygreatworkstu -p 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 --store-password-in-clear-text
     - name: Publish the package to GPR
-      run: dotnet nuget push bin/Release/*.nupkg
+      run: dotnet nuget push bin/Release/*.nupkg --source "github"
        
