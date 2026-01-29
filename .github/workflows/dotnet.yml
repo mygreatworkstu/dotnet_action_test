@@ -35,6 +35,18 @@ jobs:
       run: dotnet pack --configuration Release 
     - name: add package source
       run: dotnet nuget add source https://nuget.pkg.github.com/mygreatworkstu/index.json -n github -u mygreatworkstu -p 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 --store-password-in-clear-text
-    - name: Publish the package to GPR
-      run: dotnet nuget push bin/Release/*.nupkg --source "github"  --api-key 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
+    - name: Push to GitHub Packages
+      run: |
+        # 配置 NuGet 源
+        dotnet nuget add source \
+          https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+          --name github \
+          --username ${{ github.actor }} \
+          --password ${{ secrets.GITHUB_TOKEN }} \
+          --store-password-in-clear-text
+        
+        # 推送包
+        dotnet nuget push bin/Release/*.nupkg \
+          --source "github" \
+          --api-key ${{ secrets.GITHUB_TOKEN }}
        
